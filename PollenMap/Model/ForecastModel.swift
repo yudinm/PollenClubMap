@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol Model { }
 
@@ -14,8 +15,9 @@ protocol ForecastModelProtocol: Model {
     var allergens: [Allergen] { get set }
     var areaList: [ForecastArea] { get set }
     
-    var selectedAllergen: Allergen { get set }
-    var selectedInterval: Interval { get set }
+    var currentAllergen: Allergen { get set }
+    var currentInterval: Interval { get set }
+    var currentLocation: CLLocationCoordinate2D { get set }
 
     func fetchForecasts()
     func getIntervals() -> [Interval]
@@ -35,17 +37,17 @@ class ForecastModel: NSObject, ForecastModelProtocol {
     var allergens: [Allergen] = []
     var areaList: [ForecastArea] = []
     
-    var selectedAllergen: Allergen = "Береза" {
+    var currentAllergen: Allergen = "Береза" {
         didSet {
-            fetchAreaList(for: selectedAllergen, and: selectedInterval)
+            fetchAreaList(for: currentAllergen, and: currentInterval)
         }
     }
-    var selectedInterval: Interval = 0 {
+    var currentInterval: Interval = 0 {
         didSet {
-            fetchAreaList(for: selectedAllergen, and: selectedInterval)
+            fetchAreaList(for: currentAllergen, and: currentInterval)
         }
     }
-    
+    var currentLocation: CLLocationCoordinate2D = .init(latitude: 55.755833, longitude: 37.617222)
 }
 
 extension ForecastModel {

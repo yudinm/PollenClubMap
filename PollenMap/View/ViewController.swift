@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         addMapView()
         
         forecastModel.fetchForecasts()
-        forecastModel.selectedAllergen = "Ольха"
+        forecastModel.currentAllergen = "Ольха"
         
         forecastModel.loadingGroup.enter()
         forecastModel.areaList.forEach { area in

@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0945326B89BF9F96D70615 /* Pods_PollenMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E62F03A1F30B4380E57634F /* Pods_PollenMap.framework */; };
 		8639EA912836536C00249542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EA902836536C00249542 /* AppDelegate.swift */; };
-		8639EA932836536C00249542 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EA922836536C00249542 /* SceneDelegate.swift */; };
 		8639EA952836536C00249542 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EA942836536C00249542 /* ViewController.swift */; };
 		8639EA982836536C00249542 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8639EA962836536C00249542 /* Main.storyboard */; };
 		8639EA9A2836537000249542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8639EA992836537000249542 /* Assets.xcassets */; };
@@ -16,7 +16,6 @@
 		8639EAA628367CF000249542 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAA528367CF000249542 /* NetworkService.swift */; };
 		8639EAAB2838319700249542 /* Forecasts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAAA2838319700249542 /* Forecasts.swift */; };
 		8639EAAD2838348500249542 /* ForecastArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAAC2838348400249542 /* ForecastArea.swift */; };
-		8639EAB628394A4B00249542 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8639EAB528394A4B00249542 /* SnapKit */; };
 		8639EABE283BF6A000249542 /* GoogleMapsCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8639EABB283BF69F00249542 /* GoogleMapsCore.framework */; };
 		8639EABF283BF6A000249542 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8639EABC283BF6A000249542 /* GoogleMaps.framework */; };
 		8639EAC0283BF6A000249542 /* GoogleMapsBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8639EABD283BF6A000249542 /* GoogleMapsBase.framework */; };
@@ -40,12 +39,16 @@
 		8639EAE5283BF94300249542 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAE4283BF94300249542 /* MapService.swift */; };
 		8639EAEE283C014B00249542 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAED283C014B00249542 /* Extensions.swift */; };
 		8639EAF0283EE61900249542 /* ForecastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAEF283EE61900249542 /* ForecastModel.swift */; };
+		8639EAF32840E46000249542 /* ForecastsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAF22840E46000249542 /* ForecastsMapViewController.swift */; };
+		8639EB19284135AC00249542 /* ForecastsMapPickersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0292415018F8109A150A5203 /* Pods-PollenMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PollenMap.debug.xcconfig"; path = "Target Support Files/Pods-PollenMap/Pods-PollenMap.debug.xcconfig"; sourceTree = "<group>"; };
+		64CC9A9503647603E8751CBC /* Pods-PollenMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PollenMap.release.xcconfig"; path = "Target Support Files/Pods-PollenMap/Pods-PollenMap.release.xcconfig"; sourceTree = "<group>"; };
+		6E62F03A1F30B4380E57634F /* Pods_PollenMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PollenMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8639EA8D2836536C00249542 /* PollenMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PollenMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8639EA902836536C00249542 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8639EA922836536C00249542 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8639EA942836536C00249542 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8639EA972836536C00249542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8639EA992836537000249542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +80,8 @@
 		8639EAE4283BF94300249542 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		8639EAED283C014B00249542 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		8639EAEF283EE61900249542 /* ForecastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModel.swift; sourceTree = "<group>"; };
+		8639EAF22840E46000249542 /* ForecastsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsMapViewController.swift; sourceTree = "<group>"; };
+		8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsMapPickersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +107,8 @@
 				8639EAC5283BF71500249542 /* Accelerate.framework in Frameworks */,
 				8639EABF283BF6A000249542 /* GoogleMaps.framework in Frameworks */,
 				8639EAC0283BF6A000249542 /* GoogleMapsBase.framework in Frameworks */,
-				8639EAB628394A4B00249542 /* SnapKit in Frameworks */,
 				8639EABE283BF6A000249542 /* GoogleMapsCore.framework in Frameworks */,
+				2C0945326B89BF9F96D70615 /* Pods_PollenMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +122,7 @@
 				8639EA8F2836536C00249542 /* PollenMap */,
 				8639EA8E2836536C00249542 /* Products */,
 				8639EAC3283BF71500249542 /* Frameworks */,
+				C287BDC932F43867A94711B9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				8639EA902836536C00249542 /* AppDelegate.swift */,
-				8639EA922836536C00249542 /* SceneDelegate.swift */,
 				8639EA992836537000249542 /* Assets.xcassets */,
 				8639EA9B2836537000249542 /* LaunchScreen.storyboard */,
 			);
@@ -174,8 +179,10 @@
 		8639EAB328393B2200249542 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8639EA942836536C00249542 /* ViewController.swift */,
+				8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */,
+				8639EAF22840E46000249542 /* ForecastsMapViewController.swift */,
 				8639EA962836536C00249542 /* Main.storyboard */,
+				8639EA942836536C00249542 /* ViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -209,6 +216,7 @@
 				8639EACA283BF73900249542 /* CoreTelephony.framework */,
 				8639EACB283BF73900249542 /* CoreText.framework */,
 				8639EAC4283BF71500249542 /* Accelerate.framework */,
+				6E62F03A1F30B4380E57634F /* Pods_PollenMap.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -230,6 +238,15 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		C287BDC932F43867A94711B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0292415018F8109A150A5203 /* Pods-PollenMap.debug.xcconfig */,
+				64CC9A9503647603E8751CBC /* Pods-PollenMap.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -237,18 +254,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8639EAA12836537000249542 /* Build configuration list for PBXNativeTarget "PollenMap" */;
 			buildPhases = (
+				B10961DFF07F0CA4CF26B2E4 /* [CP] Check Pods Manifest.lock */,
 				8639EA892836536C00249542 /* Sources */,
 				8639EA8A2836536C00249542 /* Frameworks */,
 				8639EA8B2836536C00249542 /* Resources */,
+				C050BD687B6AB5C9F6572886 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = PollenMap;
-			packageProductDependencies = (
-				8639EAB528394A4B00249542 /* SnapKit */,
-			);
 			productName = PollenMap;
 			productReference = 8639EA8D2836536C00249542 /* PollenMap.app */;
 			productType = "com.apple.product-type.application";
@@ -277,9 +293,6 @@
 				Base,
 			);
 			mainGroup = 8639EA842836536C00249542;
-			packageReferences = (
-				8639EAB428394A4B00249542 /* XCRemoteSwiftPackageReference "SnapKit" */,
-			);
 			productRefGroup = 8639EA8E2836536C00249542 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -303,6 +316,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B10961DFF07F0CA4CF26B2E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PollenMap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C050BD687B6AB5C9F6572886 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PollenMap/Pods-PollenMap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PollenMap/Pods-PollenMap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PollenMap/Pods-PollenMap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8639EA892836536C00249542 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -314,8 +369,9 @@
 				8639EAEE283C014B00249542 /* Extensions.swift in Sources */,
 				8639EAF0283EE61900249542 /* ForecastModel.swift in Sources */,
 				8639EA912836536C00249542 /* AppDelegate.swift in Sources */,
+				8639EAF32840E46000249542 /* ForecastsMapViewController.swift in Sources */,
+				8639EB19284135AC00249542 /* ForecastsMapPickersViewController.swift in Sources */,
 				8639EAA628367CF000249542 /* NetworkService.swift in Sources */,
-				8639EA932836536C00249542 /* SceneDelegate.swift in Sources */,
 				8639EAE5283BF94300249542 /* MapService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,7 +401,9 @@
 		8639EA9F2836537000249542 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -378,6 +436,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -395,7 +454,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -405,7 +464,9 @@
 		8639EAA02836537000249542 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -438,6 +499,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -458,7 +520,9 @@
 		};
 		8639EAA22836537000249542 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0292415018F8109A150A5203 /* Pods-PollenMap.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -473,7 +537,6 @@
 				INFOPLIST_FILE = PollenMap/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
@@ -493,7 +556,9 @@
 		};
 		8639EAA32836537000249542 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 64CC9A9503647603E8751CBC /* Pods-PollenMap.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -508,7 +573,6 @@
 				INFOPLIST_FILE = PollenMap/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
@@ -548,25 +612,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8639EAB428394A4B00249542 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8639EAB528394A4B00249542 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8639EAB428394A4B00249542 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8639EA852836536C00249542 /* Project object */;
 }
