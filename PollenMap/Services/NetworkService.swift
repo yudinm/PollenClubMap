@@ -19,9 +19,7 @@ protocol Service { }
 
 protocol NetworkServiceProtocol {
     static var apiURL: String { get }
-    
-    func startJSONLoading(with url: URL, handleData handler: @escaping(Data)->(Void))
-    
+        
     func fetchForecasts(with completion: @escaping(Forecasts)->(Void))
     func fetchAreaData(for forecasts: Forecasts,
                        and allergen: String,
@@ -40,38 +38,26 @@ enum PollenEndpoints {
     }
 }
 
-class NetworkService: NSObject, NetworkServiceProtocol {
-    static var apiURL = "https://api.pollen.club"
+open class NetworkService: NSObject, NetworkServiceProtocol {
+    static internal var apiURL = "https://api.pollen.club"
+    private let networkingQueue = OperationQueue()
+    private var tasks: [URL: LoadingJSONOperation] = [:]
     
-    func startJSONLoading(with url: URL,
-                          handleData handler: @escaping (Data) -> (Void))
-    {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                self.handleClientError(error)
-                return
-            }
-            guard let httpResponse = response as? HTTPURLResponse,
-                (200...299).contains(httpResponse.statusCode) else {
-                self.handleServerError(response)
-                return
-            }
-            if let mimeType = httpResponse.mimeType,
-                mimeType == "application/json",
-                let data = data
-            {
-                handler(data)
-            }
-        }
-        task.resume()
+    public override init() {
+        networkingQueue.maxConcurrentOperationCount = 1
+        networkingQueue.qualityOfService = .utility
+        super.init()
     }
 }
 
 extension NetworkService {
     func fetchForecasts(with completion: @escaping (Forecasts) -> (Void)) {
         guard let url = URL(string: NetworkService.apiURL)?.appendingPathComponent(PollenEndpoints.availableForecasts.path()) else { return }
-        startJSONLoading(with: url) { data in
+        tasks[url] = LoadingJSONOperation(url: url)
+        guard let task = tasks[url] else { return }
+        task.completionBlock = {
             do {
+                guard let data = task.data else { return }
                 let forecasts = try JSONDecoder()
                     .decode(Forecasts.self, from: data)
                 completion(forecasts)
@@ -79,6 +65,7 @@ extension NetworkService {
                 fatalError("Parsing json error: \(error)")
             }
         }
+        networkingQueue.addOperation(task)
     }
 }
 
@@ -94,8 +81,11 @@ extension NetworkService {
             .appendingPathComponent(forecasts.root)
             .appendingPathComponent(allergen)
             .appendingPathComponent(path)
-        startJSONLoading(with: url) { data in
+        tasks[url] = LoadingJSONOperation(url: url)
+        guard let task = tasks[url] else { return }
+        task.completionBlock = {
             do {
+                guard let data = task.data else { return }
                 let forecastAreaList = try JSONDecoder()
                     .decode([ForecastArea].self, from: data)
                 completion(forecastAreaList)
@@ -103,10 +93,55 @@ extension NetworkService {
                 fatalError("Parsing json error: \(error)")
             }
         }
+        networkingQueue.addOperation(task)
     }
 }
 
-extension NetworkService {
+open class LoadingJSONOperation: Operation {
+//    typealias DataHandler = (Data) -> (Void)
+    private let url: URL
+//    private let handler: DataHandler
+    private var dataTask: URLSessionDataTask?
+    private let taskDispatchGroup = DispatchGroup()
+    var data: Data?
+
+    init(url: URL) {
+        self.url = url
+        super.init()
+    }
+    
+    open override func main() {
+        if isCancelled { return }
+        taskDispatchGroup.enter()
+        dataTask = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                self.handleClientError(error)
+                return
+            }
+            guard let httpResponse = response as? HTTPURLResponse,
+                (200...299).contains(httpResponse.statusCode) else {
+                self.handleServerError(response)
+                return
+            }
+            if let mimeType = httpResponse.mimeType,
+                mimeType == "application/json",
+                let data = data
+            {
+                if self.isCancelled { return }
+                self.data = data
+                self.taskDispatchGroup.leave()
+            }
+        }
+        guard let dataTask = dataTask else { return }
+        dataTask.resume()
+        taskDispatchGroup.wait()
+    }
+    
+    open override func cancel() {
+        super.cancel()
+        dataTask?.cancel()
+    }
+
     func handleClientError(_ error: Error) {
         print("Client error: ")
         fatalError(error.localizedDescription)
@@ -116,7 +151,5 @@ extension NetworkService {
         print("Server error: ")
         print(response?.debugDescription ?? "")
     }
-    
-    
-}
 
+}

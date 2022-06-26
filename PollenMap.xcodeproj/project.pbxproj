@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2C0945326B89BF9F96D70615 /* Pods_PollenMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E62F03A1F30B4380E57634F /* Pods_PollenMap.framework */; };
 		8639EA912836536C00249542 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EA902836536C00249542 /* AppDelegate.swift */; };
-		8639EA952836536C00249542 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EA942836536C00249542 /* ViewController.swift */; };
-		8639EA982836536C00249542 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8639EA962836536C00249542 /* Main.storyboard */; };
 		8639EA9A2836537000249542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8639EA992836537000249542 /* Assets.xcassets */; };
 		8639EA9D2836537000249542 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8639EA9B2836537000249542 /* LaunchScreen.storyboard */; };
 		8639EAA628367CF000249542 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAA528367CF000249542 /* NetworkService.swift */; };
@@ -41,6 +39,9 @@
 		8639EAF0283EE61900249542 /* ForecastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAEF283EE61900249542 /* ForecastModel.swift */; };
 		8639EAF32840E46000249542 /* ForecastsMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EAF22840E46000249542 /* ForecastsMapViewController.swift */; };
 		8639EB19284135AC00249542 /* ForecastsMapPickersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */; };
+		86B99451284714130066B52D /* ForecastsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B99450284714130066B52D /* ForecastsSettingsViewController.swift */; };
+		86B994532847194D0066B52D /* ForecastsPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B994522847194D0066B52D /* ForecastsPlayerViewController.swift */; };
+		86ED1E2D28685129006852B0 /* ForecastsMapViewPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ED1E2C28685129006852B0 /* ForecastsMapViewPrefs.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,8 +50,6 @@
 		6E62F03A1F30B4380E57634F /* Pods_PollenMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PollenMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8639EA8D2836536C00249542 /* PollenMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PollenMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8639EA902836536C00249542 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8639EA942836536C00249542 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8639EA972836536C00249542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8639EA992836537000249542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8639EA9C2836537000249542 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8639EA9E2836537000249542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,6 +81,9 @@
 		8639EAEF283EE61900249542 /* ForecastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastModel.swift; sourceTree = "<group>"; };
 		8639EAF22840E46000249542 /* ForecastsMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsMapViewController.swift; sourceTree = "<group>"; };
 		8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsMapPickersViewController.swift; sourceTree = "<group>"; };
+		86B99450284714130066B52D /* ForecastsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsSettingsViewController.swift; sourceTree = "<group>"; };
+		86B994522847194D0066B52D /* ForecastsPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsPlayerViewController.swift; sourceTree = "<group>"; };
+		86ED1E2C28685129006852B0 /* ForecastsMapViewPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastsMapViewPrefs.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +183,9 @@
 			children = (
 				8639EB18284135AC00249542 /* ForecastsMapPickersViewController.swift */,
 				8639EAF22840E46000249542 /* ForecastsMapViewController.swift */,
-				8639EA962836536C00249542 /* Main.storyboard */,
-				8639EA942836536C00249542 /* ViewController.swift */,
+				86B99450284714130066B52D /* ForecastsSettingsViewController.swift */,
+				86B994522847194D0066B52D /* ForecastsPlayerViewController.swift */,
+				86ED1E2C28685129006852B0 /* ForecastsMapViewPrefs.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,7 +312,6 @@
 			files = (
 				8639EA9D2836537000249542 /* LaunchScreen.storyboard in Resources */,
 				8639EA9A2836537000249542 /* Assets.xcassets in Resources */,
-				8639EA982836536C00249542 /* Main.storyboard in Resources */,
 				8639EAC2283BF6D900249542 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,13 +366,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8639EAAD2838348500249542 /* ForecastArea.swift in Sources */,
-				8639EA952836536C00249542 /* ViewController.swift in Sources */,
 				8639EAAB2838319700249542 /* Forecasts.swift in Sources */,
 				8639EAEE283C014B00249542 /* Extensions.swift in Sources */,
+				86B994532847194D0066B52D /* ForecastsPlayerViewController.swift in Sources */,
 				8639EAF0283EE61900249542 /* ForecastModel.swift in Sources */,
+				86ED1E2D28685129006852B0 /* ForecastsMapViewPrefs.swift in Sources */,
 				8639EA912836536C00249542 /* AppDelegate.swift in Sources */,
 				8639EAF32840E46000249542 /* ForecastsMapViewController.swift in Sources */,
 				8639EB19284135AC00249542 /* ForecastsMapPickersViewController.swift in Sources */,
+				86B99451284714130066B52D /* ForecastsSettingsViewController.swift in Sources */,
 				8639EAA628367CF000249542 /* NetworkService.swift in Sources */,
 				8639EAE5283BF94300249542 /* MapService.swift in Sources */,
 			);
@@ -379,14 +383,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8639EA962836536C00249542 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8639EA972836536C00249542 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8639EA9B2836537000249542 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -528,7 +524,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BT7NEHF4NA;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "$(inherited) arm64";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PollenMap/Frameworks",
@@ -564,7 +560,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BT7NEHF4NA;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "$(inherited) arm64";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/PollenMap/Frameworks",

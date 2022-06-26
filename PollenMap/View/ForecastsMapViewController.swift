@@ -19,35 +19,34 @@ class ForecastsMapViewController: UIViewController {
     
     enum ForecastControls {
         case currentAllergenButton
-        case nextIntervalButton
-        case prevIntervalButton
     }
     
     enum LoadingForecastConrols {
         case reloadButton
     }
         
-    let cameraControls: [CameraControls: UIView] = [
+    lazy var cameraControls: [CameraControls: UIView] = [
         .zoomInButton: UIButton(),
         .zoomOutButton: UIButton(),
         .centerLocationButton: UIButton()
     ]
     
-    let forecastControls: [ForecastControls: UIView] = [
-        .currentAllergenButton: UIButton(),
-        .nextIntervalButton: UIButton(),
-        .prevIntervalButton: UIButton()
+    lazy var forecastControls: [ForecastControls: UIView] = [
+        .currentAllergenButton: UIButton()
     ]
     
-    let loadingForecastControls: [LoadingForecastConrols: UIView] = [
+    lazy var loadingForecastControls: [LoadingForecastConrols: UIView] = [
         .reloadButton: UIButton()
     ]
     
-    let mapService = MapService()
-    let mapView: GMSMapView = GMSMapView.map(withFrame: .zero, camera: .init())
-    var model: ForecastModel! = ForecastModel()
+    lazy var mapService = MapService()
+    lazy var mapView: GMSMapView = GMSMapView.map(withFrame: .zero, camera: .init())
+    var model: ForecastModel = ForecastModel()
     var pickers: ForecastsMapPickersViewController!
-    
+    lazy var playerControls = ForecastsPlayerViewController()
+    lazy var currentIntervalLabel = PaddingLabel()
+    lazy var timer = Timer()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         model.fetchForecasts()
@@ -62,23 +61,45 @@ extension ForecastsMapViewController {
         mapView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        mapView.animate(toZoom: 5)
+        mapView.animate(toZoom: 7)
     }
 }
 
 extension ForecastsMapViewController {
     func reloadData() {
-        model.fetchAreaList(for: model.currentAllergen, and: model.currentInterval)
-        model.areaList.forEach { area in
-            area.latlngs.forEach { polygons in
-                polygons.forEach { polygon in
-                    let path = mapService.getGMPath(with: polygon)
-//                    print("path encoded: \(path.encodedPath()) \n")
-                    let polygon = mapService.getGMPolygon(with: path, and: area)
-                    polygon.map = mapView
+        model.fetchAreaList()
+        guard let fetchingArea = model.fetchedAreas[model.currentInterval] else { return }
+        fetchingArea.completionBlock = {
+            if fetchingArea.isCancelled { return }
+            DispatchQueue.main.async {
+                self.mapView.clear()
+                guard let areaList = fetchingArea.areaList else { return }
+                areaList.forEach { area in
+                    guard let fills = area.latlngs.first else { return }
+                        fills.forEach { polygon in
+                            let path = self.mapService.getGMPath(with: polygon)
+        //                    print("path encoded: \(path.encodedPath()) \n")  // TODO: add some cache
+                            let polygon = self.mapService.getGMPolygon(with: path, and: area)
+                            polygon.map = self.mapView
+                            guard let holes = area.latlngs.last else { return }
+                            var holePaths = [GMSPath]()
+                            holes.forEach { hole in
+                                let holePath = self.mapService.getGMPath(with: hole)
+                                holePaths.append(holePath)
+                            }
+                            polygon.holes = holePaths
+                            
+                        }
                 }
             }
         }
+
+//        print(">>> reloadDat \(model.currentInterval)")
+        let date = Date().advanced(by: TimeInterval(model.currentInterval * 60 * 60))
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        currentIntervalLabel.text = formatter.string(from: date)
     }
 }
 
@@ -91,10 +112,14 @@ extension ForecastsMapViewController {
     
     func addCameraControls() {
         guard let zoomInButton = cameraControls[.zoomInButton] as? UIButton else { return }
-        zoomInButton.setTitle("＋", for: .normal)
-        zoomInButton.titleLabel?.font = .systemFont(ofSize: 44)
-        zoomInButton.backgroundColor = .lightGray.withAlphaComponent(0.6)
+        zoomInButton.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
         zoomInButton.layer.cornerRadius = 22.0
+        zoomInButton.setImage(.init(systemName: "plus"), for: .normal)
+        zoomInButton.contentHorizontalAlignment = .fill
+        zoomInButton.contentVerticalAlignment = .fill
+        zoomInButton.imageView?.contentMode = .scaleAspectFit
+        zoomInButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+        zoomInButton.tintColor = ForecastsMapViewPrefs.shared.lightColor
         view.addSubview(zoomInButton)
         zoomInButton.snp.makeConstraints { make in
             make.width.equalTo(44)
@@ -106,10 +131,14 @@ extension ForecastsMapViewController {
         zoomInButton.addTarget(self, action: #selector(handleCameraButtons), for: .touchUpInside)
                 
         guard let zoomOutButton = cameraControls[.zoomOutButton] as? UIButton else { return }
-        zoomOutButton.setTitle("－", for: .normal)
-        zoomOutButton.titleLabel?.font = .systemFont(ofSize: 44)
-        zoomOutButton.backgroundColor = .lightGray.withAlphaComponent(0.6)
+        zoomOutButton.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
         zoomOutButton.layer.cornerRadius = 22.0
+        zoomOutButton.setImage(.init(systemName: "minus"), for: .normal)
+        zoomOutButton.contentHorizontalAlignment = .fill
+        zoomOutButton.contentVerticalAlignment = .fill
+        zoomOutButton.imageView?.contentMode = .scaleAspectFit
+        zoomOutButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+        zoomOutButton.tintColor = ForecastsMapViewPrefs.shared.lightColor
         view.addSubview(zoomOutButton)
         zoomOutButton.snp.makeConstraints { make in
             make.width.equalTo(44)
@@ -121,10 +150,14 @@ extension ForecastsMapViewController {
         zoomOutButton.addTarget(self, action: #selector(handleCameraButtons), for: .touchUpInside)
 
         guard let centerLocationButton = cameraControls[.centerLocationButton] as? UIButton else { return }
-        centerLocationButton.setTitle("◉", for: .normal)
-        centerLocationButton.titleLabel?.font = .systemFont(ofSize: 44)
-        centerLocationButton.backgroundColor = .lightGray.withAlphaComponent(0.6)
+        centerLocationButton.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
         centerLocationButton.layer.cornerRadius = 22.0
+        centerLocationButton.setImage(.init(systemName: "location"), for: .normal)
+        centerLocationButton.contentHorizontalAlignment = .fill
+        centerLocationButton.contentVerticalAlignment = .fill
+        centerLocationButton.imageView?.contentMode = .scaleAspectFit
+        centerLocationButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
+        centerLocationButton.tintColor = ForecastsMapViewPrefs.shared.lightColor
         view.addSubview(centerLocationButton)
         centerLocationButton.snp.makeConstraints { make in
             make.width.equalTo(44)
@@ -141,8 +174,10 @@ extension ForecastsMapViewController {
         guard let currentAllergenButton = forecastControls[.currentAllergenButton] as? UIButton else { return }
         currentAllergenButton.setTitle(model.currentAllergen, for: .normal)
         currentAllergenButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        currentAllergenButton.backgroundColor = .lightGray.withAlphaComponent(0.9)
-        currentAllergenButton.layer.cornerRadius = 4.0
+        currentAllergenButton.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
+        currentAllergenButton.setTitleColor(ForecastsMapViewPrefs.shared.lightColor, for: .normal)
+        currentAllergenButton.setTitleColor(ForecastsMapViewPrefs.shared.semiDarkColor, for: .highlighted)
+        currentAllergenButton.layer.cornerRadius = 8.0
         view.addSubview(currentAllergenButton)
         currentAllergenButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(8)
@@ -151,20 +186,48 @@ extension ForecastsMapViewController {
         }
         currentAllergenButton.addTarget(self, action: #selector(handleForecastButtons), for: .touchUpInside)
 
-
+        view.addSubview(playerControls.view)
+        addChild(playerControls)
+        playerControls.view.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-16)
+        }
+        playerControls.delegate = self
+        
+        view.addSubview(currentIntervalLabel)
+        currentIntervalLabel.snp.makeConstraints { make in
+            make.centerX.equalTo(playerControls.view)
+            make.top.equalTo(currentAllergenButton)
+            make.bottom.equalTo(currentAllergenButton)
+            make.width.equalTo(16).priority(.medium)
+        }
+        currentIntervalLabel.textColor = ForecastsMapViewPrefs.shared.lightColor
+        currentIntervalLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        currentIntervalLabel.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
+        currentIntervalLabel.textColor = ForecastsMapViewPrefs.shared.lightColor
+        currentIntervalLabel.textAlignment = .center
+        currentIntervalLabel.text = "none"
+        currentIntervalLabel.clipsToBounds = true
+        currentIntervalLabel.layer.cornerRadius = 8.0
+        currentIntervalLabel.leftInset = 8.0
+        currentIntervalLabel.rightInset = 8.0
+        
     }
     
     func addLoadingForecastConrols() {
         guard let reloadButton = loadingForecastControls[.reloadButton] as? UIButton else { return }
         reloadButton.setTitle("Загрузить", for: .normal)
         reloadButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        reloadButton.backgroundColor = .lightGray.withAlphaComponent(0.9)
-        reloadButton.layer.cornerRadius = 4.0
+        reloadButton.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
+        reloadButton.layer.cornerRadius = 8.0
+        reloadButton.setTitleColor(ForecastsMapViewPrefs.shared.lightColor, for: .normal)
+        reloadButton.setTitleColor(ForecastsMapViewPrefs.shared.semiDarkColor, for: .highlighted)
+
         view.addSubview(reloadButton)
         reloadButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-8)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(8)
-            make.width.equalTo(66).priority(.medium)
+            make.width.equalTo(88).priority(.medium)
         }
         reloadButton.addTarget(self, action: #selector(handleLoadingButtons), for: .touchUpInside)
 
@@ -203,7 +266,6 @@ extension ForecastsMapViewController {
     }
     @objc func handleLoadingButtons(_ sender: UIButton) {
         if (sender.isEqual(loadingForecastControls[.reloadButton])) {
-            mapView.clear()
             reloadData()
         }
     }
@@ -220,5 +282,31 @@ class PresentationController: UIPresentationController {
         guard let bounds = containerView?.bounds else { return .zero }
         let ratio = 0.29
         return CGRect(x: 0, y: bounds.height * (1 - ratio), width: bounds.width, height: bounds.height * ratio)
+    }
+}
+
+extension ForecastsMapViewController: ForecastsPlayerViewControllerDelegate {
+    func next() {
+        model.currentIntervalIndex += 1
+        reloadData()
+    }
+    
+    func prev() {
+        model.currentIntervalIndex -= 1
+        reloadData()
+    }
+    
+    func pause() {
+        timer.invalidate()
+    }
+    
+    func play() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            self.model.currentIntervalIndex += 1
+            if (self.model.currentIntervalIndex >= self.model.intervalsList.count-1) {
+                self.model.currentIntervalIndex = 0
+            }
+            self.reloadData()
+        }
     }
 }

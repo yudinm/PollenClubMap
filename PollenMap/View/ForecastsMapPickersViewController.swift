@@ -30,16 +30,19 @@ class ForecastsMapPickersViewController: UIViewController {
     
     lazy var toolbar: UIToolbar = {
         let toolbar = UIToolbar()
-        toolbar.barTintColor = bgColor
+        toolbar.barTintColor = ForecastsMapViewPrefs.shared.darkColor
         toolbar.setItems([
             {
                 let button = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(toolbarButtonHandler))
                 button.tag = ForecastPickersToolbar.cancelButton.rawValue
-                return button }(),
+                button.tintColor = ForecastsMapViewPrefs.shared.lightColor
+                return button
+            }(),
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             {
                 let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(toolbarButtonHandler))
                 button.tag = ForecastPickersToolbar.doneButton.rawValue
+                button.tintColor = ForecastsMapViewPrefs.shared.lightColor
                 return button
             }()
         ], animated: false)
@@ -54,7 +57,6 @@ class ForecastsMapPickersViewController: UIViewController {
         }
     }
     var currentPickerType: ForecastPickers!
-    let bgColor: UIColor = .white.withAlphaComponent(0.9)
     var completion: (() -> Void)?
     var pickerAllergen: Allergen!
     var pickerInterval: Interval!
@@ -62,7 +64,7 @@ class ForecastsMapPickersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addControls()
-        view.backgroundColor = bgColor
+        view.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
     }
 }
 
@@ -86,7 +88,7 @@ extension ForecastsMapPickersViewController {
         guard let picker = forecastPickers[currentPickerType] as? UIPickerView else {return}
         picker.dataSource = self
         picker.delegate = self
-        picker.backgroundColor = bgColor
+        picker.backgroundColor = ForecastsMapViewPrefs.shared.darkColor
         view.addSubview(picker)
         picker.snp.makeConstraints { make in
             make.top.equalTo(toolbar.snp.bottom)
@@ -136,7 +138,7 @@ extension ForecastsMapPickersViewController: UIPickerViewDataSource {
         case .currentAllergenPicker:
             return model.allergens.count
         case .currentIntervalPicker:
-            return model.getIntervals().count
+            return model.intervalsList.count
         case .loadIntervalNumberPicker:
             return 14 // ???
         case .none:
@@ -179,7 +181,7 @@ extension ForecastsMapPickersViewController {
         case .currentAllergenPicker:
             return model.allergens.firstIndex(of: data as! Allergen) ?? 0
         case .currentIntervalPicker:
-            return model.getIntervals().firstIndex(of: data as! Interval) ?? 0
+            return model.intervalsList.firstIndex(of: data as! Interval) ?? 0
         case .loadIntervalNumberPicker:
             return 0
         case .none:
@@ -192,7 +194,7 @@ extension ForecastsMapPickersViewController {
         case .currentAllergenPicker:
             return model.allergens[row]
         case .currentIntervalPicker:
-            return model.getIntervals()[row]
+            return model.intervalsList[row]
         case .loadIntervalNumberPicker:
             return 0
         }
