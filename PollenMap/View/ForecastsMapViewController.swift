@@ -45,6 +45,7 @@ class ForecastsMapViewController: UIViewController {
     var pickers: ForecastsMapPickersViewController!
     lazy var playerControls = ForecastsPlayerViewController()
     lazy var currentIntervalLabel = PaddingLabel()
+    lazy var loadingSpinner = UIActivityIndicatorView(style: .large)
     lazy var timer = Timer()
 
     override func viewDidLoad() {
@@ -67,6 +68,7 @@ extension ForecastsMapViewController {
 
 extension ForecastsMapViewController {
     func reloadData() {
+        loadingSpinner.startAnimating()
         model.fetchAreaList()
         guard let fetchingArea = model.fetchedAreas[model.currentInterval] else { return }
         fetchingArea.completionBlock = {
@@ -91,12 +93,13 @@ extension ForecastsMapViewController {
                             
                         }
                 }
+                self.loadingSpinner.stopAnimating()
             }
         }
 
 //        print(">>> reloadDat \(model.currentInterval)")
         let date = Date().advanced(by: TimeInterval(model.currentInterval * 60 * 60))
-        let formatter = DateFormatter()
+        let formatter = DateFormatter() // TODO: fix with shared formatter
         formatter.dateStyle = .short
         formatter.timeStyle = .short
         currentIntervalLabel.text = formatter.string(from: date)
@@ -211,7 +214,6 @@ extension ForecastsMapViewController {
         currentIntervalLabel.layer.cornerRadius = 8.0
         currentIntervalLabel.leftInset = 8.0
         currentIntervalLabel.rightInset = 8.0
-        
     }
     
     func addLoadingForecastConrols() {
@@ -230,6 +232,16 @@ extension ForecastsMapViewController {
             make.width.equalTo(88).priority(.medium)
         }
         reloadButton.addTarget(self, action: #selector(handleLoadingButtons), for: .touchUpInside)
+        
+        view.addSubview(loadingSpinner)
+        loadingSpinner.snp.makeConstraints { make in
+            make.right.equalTo(reloadButton.snp.right)
+            make.height.equalTo(reloadButton.snp.height)
+            make.top.equalTo(reloadButton.snp.bottom).offset(4)
+        }
+        loadingSpinner.hidesWhenStopped = true
+        loadingSpinner.stopAnimating()
+        loadingSpinner.tintColor = ForecastsMapViewPrefs.shared.semiDarkColor
 
     }
 }
