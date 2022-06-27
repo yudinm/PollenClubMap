@@ -186,6 +186,7 @@ extension ForecastsMapViewController {
             make.leading.equalToSuperview().offset(8)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(8)
             make.width.equalTo(66).priority(.medium)
+            make.height.equalTo(36)
         }
         currentAllergenButton.addTarget(self, action: #selector(handleForecastButtons), for: .touchUpInside)
 
@@ -202,6 +203,7 @@ extension ForecastsMapViewController {
             make.centerX.equalTo(playerControls.view)
             make.top.equalTo(currentAllergenButton)
             make.bottom.equalTo(currentAllergenButton)
+            make.height.equalTo(36)
             make.width.equalTo(16).priority(.medium)
         }
         currentIntervalLabel.textColor = ForecastsMapViewPrefs.shared.lightColor
@@ -230,6 +232,7 @@ extension ForecastsMapViewController {
             make.trailing.equalToSuperview().offset(-8)
             make.top.equalTo(view.safeAreaLayoutGuide.snp.topMargin).offset(8)
             make.width.equalTo(88).priority(.medium)
+            make.height.equalTo(36)
         }
         reloadButton.addTarget(self, action: #selector(handleLoadingButtons), for: .touchUpInside)
         
